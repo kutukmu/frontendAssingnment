@@ -21,8 +21,10 @@ const Secret = (props) =>{
 
     const id = props.match.params.id
 
-    const handler = async() =>{
-const res = await axios.get(`https://fabbackend.herokuapp.com/api/user/${id}`)
+    
+    useEffect(() =>{
+        async function myFunc(){
+            const res = await axios.get(`https://fabbackend.herokuapp.com/api/user/${id}`)
         const {data} = res
         const username = data.user.username
         const ct = data.user.currentTime.slice(0,10)
@@ -31,9 +33,8 @@ const res = await axios.get(`https://fabbackend.herokuapp.com/api/user/${id}`)
             time:ct,
             path:process.cwd()
         })
-    }
-    useEffect(() =>{
-        handler()
+        }
+        myFunc()
     },[id])
 
     const handleClick = () =>{
